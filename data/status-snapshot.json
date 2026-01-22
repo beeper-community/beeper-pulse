@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-22T03:26:21.511Z",
+  "lastUpdated": "2026-01-22T03:36:08.957Z",
   "overall": "degraded",
   "services": {
     "beeper-website": {
@@ -12,9 +12,9 @@
         "timeout": 10000
       },
       "status": "operational",
-      "responseTime": 752,
+      "responseTime": 638,
       "statusCode": 200,
-      "timestamp": "2026-01-22T03:26:19.537Z"
+      "timestamp": "2026-01-22T03:36:08.295Z"
     },
     "beeper-help": {
       "endpoint": {
@@ -26,9 +26,9 @@
         "timeout": 10000
       },
       "status": "degraded",
-      "responseTime": 550,
+      "responseTime": 264,
       "statusCode": 404,
-      "timestamp": "2026-01-22T03:26:20.087Z"
+      "timestamp": "2026-01-22T03:36:08.559Z"
     },
     "npm-sdk": {
       "endpoint": {
@@ -40,9 +40,9 @@
         "timeout": 10000
       },
       "status": "operational",
-      "responseTime": 803,
+      "responseTime": 111,
       "statusCode": 200,
-      "timestamp": "2026-01-22T03:26:20.891Z"
+      "timestamp": "2026-01-22T03:36:08.670Z"
     },
     "github-desktop-api": {
       "endpoint": {
@@ -54,9 +54,9 @@
         "timeout": 10000
       },
       "status": "operational",
-      "responseTime": 322,
+      "responseTime": 144,
       "statusCode": 200,
-      "timestamp": "2026-01-22T03:26:21.213Z"
+      "timestamp": "2026-01-22T03:36:08.814Z"
     },
     "github-bridge-manager": {
       "endpoint": {
@@ -68,9 +68,9 @@
         "timeout": 10000
       },
       "status": "operational",
-      "responseTime": 295,
+      "responseTime": 142,
       "statusCode": 200,
-      "timestamp": "2026-01-22T03:26:21.509Z"
+      "timestamp": "2026-01-22T03:36:08.956Z"
     }
   },
   "history": {
@@ -81,6 +81,11 @@
           "status": "operational",
           "responseTime": 752,
           "timestamp": "2026-01-22T03:26:19.537Z"
+        },
+        {
+          "status": "operational",
+          "responseTime": 638,
+          "timestamp": "2026-01-22T03:36:08.295Z"
         }
       ],
       "uptime": {
@@ -96,6 +101,11 @@
           "status": "degraded",
           "responseTime": 550,
           "timestamp": "2026-01-22T03:26:20.087Z"
+        },
+        {
+          "status": "degraded",
+          "responseTime": 264,
+          "timestamp": "2026-01-22T03:36:08.559Z"
         }
       ],
       "uptime": {
@@ -111,6 +121,11 @@
           "status": "operational",
           "responseTime": 803,
           "timestamp": "2026-01-22T03:26:20.891Z"
+        },
+        {
+          "status": "operational",
+          "responseTime": 111,
+          "timestamp": "2026-01-22T03:36:08.670Z"
         }
       ],
       "uptime": {
@@ -126,6 +141,11 @@
           "status": "operational",
           "responseTime": 322,
           "timestamp": "2026-01-22T03:26:21.213Z"
+        },
+        {
+          "status": "operational",
+          "responseTime": 144,
+          "timestamp": "2026-01-22T03:36:08.814Z"
         }
       ],
       "uptime": {
@@ -141,6 +161,11 @@
           "status": "operational",
           "responseTime": 295,
           "timestamp": "2026-01-22T03:26:21.509Z"
+        },
+        {
+          "status": "operational",
+          "responseTime": 142,
+          "timestamp": "2026-01-22T03:36:08.956Z"
         }
       ],
       "uptime": {
