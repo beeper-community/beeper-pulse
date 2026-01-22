@@ -35,6 +35,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm fetch:official
 
+      - name: Send release notifications
+        env:
+          MATRIX_HOMESERVER_URL: ${{ secrets.MATRIX_HOMESERVER_URL }}
+          MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
+          MATRIX_ROOM_ID: ${{ secrets.MATRIX_ROOM_ID }}
+        run: pnpm notify:releases
+        continue-on-error: true
+
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"

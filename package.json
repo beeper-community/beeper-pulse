@@ -11,6 +11,8 @@
     "fetch:official": "pnpm --filter @beeper-pulse/core run fetch:official",
     "fetch:community": "pnpm --filter @beeper-pulse/core run fetch:community",
     "notify": "pnpm --filter @beeper-pulse/notifications run send",
+    "notify:status": "pnpm --filter @beeper-pulse/notifications run notify:status",
+    "notify:releases": "pnpm --filter @beeper-pulse/notifications run notify:releases",
     "status:check": "pnpm --filter @beeper-pulse/status run check",
     "web:dev": "pnpm --filter @beeper-pulse/web run dev",
     "web:build": "pnpm --filter @beeper-pulse/web run build"

@@ -8,7 +8,9 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "send": "tsx send.ts"
+    "send": "tsx send.ts",
+    "notify:status": "tsx notify.ts status",
+    "notify:releases": "tsx notify.ts releases"
   },
   "dependencies": {
     "@beeper-pulse/core": "workspace:*"
