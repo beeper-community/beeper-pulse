@@ -19,9 +19,6 @@
     },
     "fetch:community": {
       "cache": false
-    },
-    "check": {
-      "cache": false
     }
   }
 }
