@@ -22,7 +22,7 @@
 
 <div align="center">
 
-[![Release Notifications](https://github.com/beeper-community/beeper-pulse/actions/workflows/release-notifications.yml/badge.svg)](https://github.com/beeper-community/beeper-pulse/actions/workflows/release-notifications.yml)
+[![Official Updates](https://github.com/beeper-community/beeper-pulse/actions/workflows/official-updates.yml/badge.svg)](https://github.com/beeper-community/beeper-pulse/actions/workflows/official-updates.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
@@ -119,14 +119,23 @@ cd beeper-pulse
 # Install dependencies
 pnpm install
 
-# Run tests
-pnpm test
+# Build all packages
+pnpm build
 
 # Check types
 pnpm typecheck
 
 # Lint code
 pnpm lint
+
+# Fetch updates
+pnpm fetch:official    # Fetch official Beeper updates
+pnpm fetch:community   # Fetch community bridge updates
+
+# Send notifications
+pnpm notify            # Send all notifications
+pnpm notify:status     # Send status notifications
+pnpm notify:releases   # Send release notifications
 ```
 
 ---
