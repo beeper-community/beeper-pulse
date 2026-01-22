@@ -1,0 +1,8 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Beeper Pulse - Release Updates",
+  "description": "Latest releases from the Beeper ecosystem",
+  "home_page_url": "https://beeper-community.github.io/beeper-pulse",
+  "feed_url": "https://raw.githubusercontent.com/beeper-community/beeper-pulse/main/feeds/releases.json",
+  "items": []
+}

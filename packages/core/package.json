@@ -1,0 +1,33 @@
+{
+  "name": "@beeper-pulse/core",
+  "version": "1.0.0",
+  "description": "Core automation - version tracking, changelog generation, snapshot diffing",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./types": "./dist/lib/types.js",
+    "./fetchers": "./dist/lib/fetchers.js",
+    "./diff": "./dist/lib/diff.js",
+    "./templates": "./dist/lib/templates.js",
+    "./feeds": "./dist/lib/feeds.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "fetch:official": "tsx official-updates.ts",
+    "fetch:community": "tsx community-digest.ts"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.0",
+    "date-fns": "^3.0.0",
+    "feed": "^4.2.2",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}
