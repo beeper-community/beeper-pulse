@@ -1,7 +1,7 @@
 {
   "name": "beeper-pulse",
   "version": "1.0.0",
-  "description": "Full monitoring suite for the Beeper ecosystem - version tracking, notifications, visualizations, and status monitoring",
+  "description": "Notification broadcaster for Beeper ecosystem updates",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,14 +12,7 @@
     "fetch:community": "pnpm --filter @beeper-pulse/core run fetch:community",
     "notify": "pnpm --filter @beeper-pulse/notifications run send",
     "notify:status": "pnpm --filter @beeper-pulse/notifications run notify:status",
-    "notify:releases": "pnpm --filter @beeper-pulse/notifications run notify:releases",
-    "status:check": "pnpm --filter @beeper-pulse/status run check",
-    "web:dev": "pnpm --filter @beeper-pulse/web run dev",
-    "web:build": "pnpm --filter @beeper-pulse/web run build",
-    "curator": "pnpm --filter @beeper-pulse/curator run curate",
-    "curator:fetch": "pnpm --filter @beeper-pulse/curator run curate:fetch",
-    "curator:process": "pnpm --filter @beeper-pulse/curator run curate:process",
-    "curator:publish": "pnpm --filter @beeper-pulse/curator run curate:publish"
+    "notify:releases": "pnpm --filter @beeper-pulse/notifications run notify:releases"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
