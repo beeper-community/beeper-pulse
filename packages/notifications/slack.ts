@@ -127,3 +127,22 @@ export async function sendSlackNotification(
     };
   }
 }
+
+/**
+ * Send notification using environment variables
+ */
+export async function sendSlackNotificationFromEnv(
+  payload: NotificationPayload
+): Promise<NotificationResult> {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+  if (!webhookUrl) {
+    return {
+      success: false,
+      provider: "slack",
+      error: "SLACK_WEBHOOK_URL not configured",
+      timestamp: new Date(),
+    };
+  }
+
+  return sendSlackNotification(payload, { webhookUrl });
+}

@@ -1,29 +1,34 @@
 import { Feed } from "feed";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import type { GitHubRelease, NpmVersion, FeedItem } from "./types.js";
 
-const FEEDS_DIR = "../feeds";
+// Navigate from this file to the monorepo root: lib/ -> core/ -> packages/ -> root/
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const MONOREPO_ROOT = join(__dirname, "..", "..", "..");
+const FEEDS_DIR = join(MONOREPO_ROOT, "feeds");
 
 /**
  * Create the base feed object
  */
 function createBaseFeed(): Feed {
   return new Feed({
-    title: "Awesome Beeper Updates",
-    description: "Latest updates from the Beeper ecosystem",
-    id: "https://github.com/robertogogoni/awesome-beeper",
-    link: "https://github.com/robertogogoni/awesome-beeper",
+    title: "Beeper Pulse - Release Updates",
+    description: "Latest releases from the Beeper ecosystem",
+    id: "https://github.com/beeper-community/beeper-pulse",
+    link: "https://beeper-community.github.io/beeper-pulse",
     language: "en",
     favicon: "https://beeper.com/favicon.ico",
     copyright: "MIT License",
     updated: new Date(),
     feedLinks: {
-      rss: "https://raw.githubusercontent.com/robertogogoni/awesome-beeper/main/feeds/releases.xml",
-      json: "https://raw.githubusercontent.com/robertogogoni/awesome-beeper/main/feeds/releases.json",
+      rss: "https://raw.githubusercontent.com/beeper-community/beeper-pulse/main/feeds/releases.xml",
+      json: "https://raw.githubusercontent.com/beeper-community/beeper-pulse/main/feeds/releases.json",
     },
     author: {
-      name: "Awesome Beeper Contributors",
-      link: "https://github.com/robertogogoni/awesome-beeper",
+      name: "Beeper Community",
+      link: "https://github.com/beeper-community",
     },
   });
 }
@@ -93,12 +98,12 @@ export async function generateRssFeed(
   }
 
   // Write RSS
-  const rssPath = new URL(`${FEEDS_DIR}/releases.xml`, import.meta.url).pathname;
+  const rssPath = join(FEEDS_DIR, "releases.xml");
   await writeFile(rssPath, feed.rss2());
 
   // Write JSON Feed
-  const jsonPath = new URL(`${FEEDS_DIR}/releases.json`, import.meta.url).pathname;
+  const jsonPath = join(FEEDS_DIR, "releases.json");
   await writeFile(jsonPath, feed.json1());
 
-  console.log("✅ Feeds generated: releases.xml, releases.json");
+  console.log(`✅ Feeds generated: ${rssPath}, ${jsonPath}`);
 }

@@ -1,6 +1,5 @@
 #!/usr/bin/env tsx
 
-import { readFile, writeFile } from "fs/promises";
 import { fetchGitHubReleases, fetchNpmVersions } from "./lib/fetchers.js";
 import {
   loadSnapshot,
@@ -11,10 +10,6 @@ import {
   updateSnapshotNpm,
   hasChanges,
 } from "./lib/diff.js";
-import {
-  generateReleaseEntry,
-  generateNpmEntry,
-} from "./lib/templates.js";
 import { generateRssFeed } from "./lib/feeds.js";
 import type { GitHubRelease, NpmVersion } from "./lib/types.js";
 
@@ -77,103 +72,28 @@ async function main() {
 
   console.log("");
 
-  // Check if there are any changes
-  if (!hasChanges(newReleases, newNpmVersions)) {
-    console.log("✅ No new updates found. Exiting.");
-    return;
+  // Update snapshot with all releases (even if not "new")
+  for (const [repoKey, releases] of allReleases) {
+    updateSnapshotReleases(snapshot, repoKey, releases);
+  }
+  for (const [pkg, versions] of allNpmVersions) {
+    updateSnapshotNpm(snapshot, pkg, versions);
   }
 
-  console.log("📝 Generating updates...\n");
-
-  // Update changelogs
-  for (const [repoKey, releases] of newReleases) {
-    if (releases.length === 0) continue;
-
-    // Determine which changelog to update
-    let changelogPath: string;
-    if (repoKey.includes("desktop-api")) {
-      changelogPath = "../docs/sdk/changelog.md";
-    } else {
-      changelogPath = "../docs/desktop-app/changelog.md";
-    }
-
-    const fullPath = new URL(changelogPath, import.meta.url).pathname;
-
-    try {
-      let content = await readFile(fullPath, "utf-8");
-
-      // Find insertion point (after "## Latest Version" or "## Version History")
-      const insertPoint = content.indexOf("## Version History");
-      if (insertPoint === -1) {
-        console.warn(`  ⚠️ Could not find insertion point in ${changelogPath}`);
-        continue;
-      }
-
-      // Generate new entries
-      let newContent = "";
-      for (const release of releases.reverse()) {
-        newContent += generateReleaseEntry(release);
-      }
-
-      // Insert new content
-      const before = content.slice(0, insertPoint + "## Version History\n\n".length);
-      const after = content.slice(insertPoint + "## Version History\n\n".length);
-      content = before + newContent + after;
-
-      await writeFile(fullPath, content);
-      console.log(`  ✅ Updated ${changelogPath}`);
-
-      // Update snapshot
-      updateSnapshotReleases(snapshot, repoKey, allReleases.get(repoKey)!);
-    } catch (error) {
-      console.error(`  ❌ Failed to update ${changelogPath}:`, error);
-    }
-  }
-
-  // Update npm changelogs
-  for (const [pkg, versions] of newNpmVersions) {
-    if (versions.length === 0) continue;
-
-    const changelogPath = "../docs/sdk/changelog.md";
-    const fullPath = new URL(changelogPath, import.meta.url).pathname;
-    const npmUrl = `https://www.npmjs.com/package/${pkg}`;
-
-    try {
-      let content = await readFile(fullPath, "utf-8");
-
-      const insertPoint = content.indexOf("## Version History");
-      if (insertPoint === -1) {
-        console.warn(`  ⚠️ Could not find insertion point in ${changelogPath}`);
-        continue;
-      }
-
-      let newContent = "";
-      for (const version of versions.reverse()) {
-        newContent += generateNpmEntry(version, npmUrl);
-      }
-
-      const before = content.slice(0, insertPoint + "## Version History\n\n".length);
-      const after = content.slice(insertPoint + "## Version History\n\n".length);
-      content = before + newContent + after;
-
-      await writeFile(fullPath, content);
-      console.log(`  ✅ Updated ${changelogPath} with npm versions`);
-
-      updateSnapshotNpm(snapshot, pkg, allNpmVersions.get(pkg)!);
-    } catch (error) {
-      console.error(`  ❌ Failed to update changelog:`, error);
-    }
-  }
-
-  // Generate feeds
+  // Generate feeds (always regenerate with latest data)
+  console.log("📡 Generating feeds...");
   await generateRssFeed(allReleases, allNpmVersions);
 
   // Save updated snapshot
   await saveSnapshot(snapshot);
-  console.log("\n📸 Snapshot saved");
+  console.log("📸 Snapshot saved");
 
-  console.log("\n✅ Updates complete!");
-  console.log("   Review changes and create a PR.");
+  // Check if there were new releases for notification purposes
+  if (hasChanges(newReleases, newNpmVersions)) {
+    console.log("\n🔔 New updates found! Notifications will be sent.");
+  } else {
+    console.log("\n✅ No new updates. Feeds regenerated.");
+  }
 }
 
 main().catch(console.error);

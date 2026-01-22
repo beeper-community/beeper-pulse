@@ -1,16 +1,19 @@
 import { readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import type { Snapshot, GitHubRelease, NpmVersion } from "./types.js";
 
-const SNAPSHOT_PATH = "../data/snapshot.json";
+// Navigate from this file to the monorepo root: lib/ -> core/ -> packages/ -> root/
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const MONOREPO_ROOT = join(__dirname, "..", "..", "..");
+const SNAPSHOT_PATH = join(MONOREPO_ROOT, "data", "snapshot.json");
 
 /**
  * Load the previous snapshot
  */
 export async function loadSnapshot(): Promise<Snapshot> {
-  const path = new URL(SNAPSHOT_PATH, import.meta.url).pathname;
-
-  if (!existsSync(path)) {
+  if (!existsSync(SNAPSHOT_PATH)) {
     return {
       lastUpdated: new Date().toISOString(),
       releases: {},
@@ -18,7 +21,7 @@ export async function loadSnapshot(): Promise<Snapshot> {
     };
   }
 
-  const content = await readFile(path, "utf-8");
+  const content = await readFile(SNAPSHOT_PATH, "utf-8");
   return JSON.parse(content) as Snapshot;
 }
 
@@ -26,9 +29,8 @@ export async function loadSnapshot(): Promise<Snapshot> {
  * Save the current snapshot
  */
 export async function saveSnapshot(snapshot: Snapshot): Promise<void> {
-  const path = new URL(SNAPSHOT_PATH, import.meta.url).pathname;
   snapshot.lastUpdated = new Date().toISOString();
-  await writeFile(path, JSON.stringify(snapshot, null, 2));
+  await writeFile(SNAPSHOT_PATH, JSON.stringify(snapshot, null, 2));
 }
 
 /**

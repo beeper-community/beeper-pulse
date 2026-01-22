@@ -22,22 +22,19 @@ function formatMatrixMessage(payload: NotificationPayload): {
     payload.type === "release"
       ? "🚀"
       : payload.type === "status"
-        ? payload.status === "operational"
-          ? "✅"
-          : payload.status === "degraded"
-            ? "⚠️"
-            : "❌"
-        : "📢";
+        ? "📊"
+        : payload.type === "alert"
+          ? "🚨"
+          : "📢";
 
   // Plain text version
-  const body = `${emoji} ${payload.title}\n\n${payload.description}${payload.url ? `\n\n${payload.url}` : ""}`;
+  const body = `${emoji} ${payload.title}\n\n${payload.message}${payload.url ? `\n\n${payload.url}` : ""}`;
 
   // HTML formatted version
   const formatted_body = `
 <h4>${emoji} ${payload.title}</h4>
-<p>${payload.description}</p>
+<p>${payload.message.replace(/\n/g, '<br>')}</p>
 ${payload.url ? `<p><a href="${payload.url}">View Details</a></p>` : ""}
-${payload.fields?.length ? `<ul>${payload.fields.map((f) => `<li><strong>${f.name}:</strong> ${f.value}</li>`).join("")}</ul>` : ""}
   `.trim();
 
   return { body, formatted_body };

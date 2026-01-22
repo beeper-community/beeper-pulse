@@ -5,13 +5,18 @@
  */
 
 import { readFile } from "fs/promises";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import { sendMatrixNotificationFromEnv } from "./matrix.js";
 import { sendDiscordNotificationFromEnv } from "./discord.js";
 import { sendSlackNotificationFromEnv } from "./slack.js";
 import type { NotificationPayload } from "./types.js";
 
-const STATUS_SNAPSHOT = "../../data/status-snapshot.json";
-const RELEASE_SNAPSHOT = "../../data/snapshot.json";
+// Navigate from this file to the monorepo root: notifications/ -> packages/ -> root/
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const MONOREPO_ROOT = join(__dirname, "..", "..");
+const STATUS_SNAPSHOT = join(MONOREPO_ROOT, "data", "status-snapshot.json");
+const RELEASE_SNAPSHOT = join(MONOREPO_ROOT, "data", "snapshot.json");
 
 interface StatusSnapshot {
   lastUpdated: string;
@@ -27,8 +32,7 @@ interface ReleaseSnapshot {
 
 async function loadJson<T>(path: string): Promise<T | null> {
   try {
-    const fullPath = new URL(path, import.meta.url).pathname;
-    const content = await readFile(fullPath, "utf-8");
+    const content = await readFile(path, "utf-8");
     return JSON.parse(content) as T;
   } catch {
     return null;
@@ -74,13 +78,8 @@ async function notifyStatusChange(): Promise<void> {
   const payload: NotificationPayload = {
     type: "status",
     title: `Beeper Status: ${status.overall.toUpperCase()}`,
-    description: `Status check completed at ${new Date(status.lastUpdated).toLocaleString()}`,
-    status: status.overall as "operational" | "degraded" | "outage",
+    message: `Status check completed at ${new Date(status.lastUpdated).toLocaleString()}\n\n${serviceList}`,
     url: "https://beeper-community.github.io/beeper-pulse",
-    fields: Object.values(status.services).map((s) => ({
-      name: s.endpoint.name,
-      value: `${s.status} (${s.responseTime}ms)`,
-    })),
   };
 
   await sendNotification(payload);
@@ -117,15 +116,10 @@ async function notifyNewReleases(previousSnapshot: ReleaseSnapshot | null): Prom
     const payload: NotificationPayload = {
       type: "release",
       title: `🚀 New Release: ${release.name}`,
-      description: `${release.type} package ${release.name} has been updated to ${release.version}`,
+      message: `${release.type} package **${release.name}** has been updated to **${release.version}**`,
       url: release.type === "GitHub"
         ? `https://github.com/${release.name}/releases/tag/${release.version}`
         : `https://www.npmjs.com/package/${release.name}`,
-      fields: [
-        { name: "Package", value: release.name },
-        { name: "Version", value: release.version },
-        { name: "Source", value: release.type },
-      ],
     };
 
     await sendNotification(payload);

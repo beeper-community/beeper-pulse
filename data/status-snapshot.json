@@ -1,7 +1,154 @@
 {
-  "lastUpdated": "2026-01-21T00:00:00.000Z",
-  "overall": "unknown",
-  "services": {},
-  "history": {},
+  "lastUpdated": "2026-01-22T03:26:21.511Z",
+  "overall": "degraded",
+  "services": {
+    "beeper-website": {
+      "endpoint": {
+        "id": "beeper-website",
+        "name": "Beeper Website",
+        "url": "https://beeper.com",
+        "type": "https",
+        "expectedStatus": 200,
+        "timeout": 10000
+      },
+      "status": "operational",
+      "responseTime": 752,
+      "statusCode": 200,
+      "timestamp": "2026-01-22T03:26:19.537Z"
+    },
+    "beeper-help": {
+      "endpoint": {
+        "id": "beeper-help",
+        "name": "Beeper Help Center",
+        "url": "https://help.beeper.com",
+        "type": "https",
+        "expectedStatus": 200,
+        "timeout": 10000
+      },
+      "status": "degraded",
+      "responseTime": 550,
+      "statusCode": 404,
+      "timestamp": "2026-01-22T03:26:20.087Z"
+    },
+    "npm-sdk": {
+      "endpoint": {
+        "id": "npm-sdk",
+        "name": "SDK (npm)",
+        "url": "https://registry.npmjs.org/@beeper/desktop-api",
+        "type": "npm",
+        "expectedStatus": 200,
+        "timeout": 10000
+      },
+      "status": "operational",
+      "responseTime": 803,
+      "statusCode": 200,
+      "timestamp": "2026-01-22T03:26:20.891Z"
+    },
+    "github-desktop-api": {
+      "endpoint": {
+        "id": "github-desktop-api",
+        "name": "desktop-api-js (GitHub)",
+        "url": "https://api.github.com/repos/beeper/desktop-api-js",
+        "type": "github",
+        "expectedStatus": 200,
+        "timeout": 10000
+      },
+      "status": "operational",
+      "responseTime": 322,
+      "statusCode": 200,
+      "timestamp": "2026-01-22T03:26:21.213Z"
+    },
+    "github-bridge-manager": {
+      "endpoint": {
+        "id": "github-bridge-manager",
+        "name": "bridge-manager (GitHub)",
+        "url": "https://api.github.com/repos/beeper/bridge-manager",
+        "type": "github",
+        "expectedStatus": 200,
+        "timeout": 10000
+      },
+      "status": "operational",
+      "responseTime": 295,
+      "statusCode": 200,
+      "timestamp": "2026-01-22T03:26:21.509Z"
+    }
+  },
+  "history": {
+    "beeper-website": {
+      "endpoint": "beeper-website",
+      "checks": [
+        {
+          "status": "operational",
+          "responseTime": 752,
+          "timestamp": "2026-01-22T03:26:19.537Z"
+        }
+      ],
+      "uptime": {
+        "last24h": 100,
+        "last7d": 100,
+        "last30d": 100
+      }
+    },
+    "beeper-help": {
+      "endpoint": "beeper-help",
+      "checks": [
+        {
+          "status": "degraded",
+          "responseTime": 550,
+          "timestamp": "2026-01-22T03:26:20.087Z"
+        }
+      ],
+      "uptime": {
+        "last24h": 0,
+        "last7d": 0,
+        "last30d": 0
+      }
+    },
+    "npm-sdk": {
+      "endpoint": "npm-sdk",
+      "checks": [
+        {
+          "status": "operational",
+          "responseTime": 803,
+          "timestamp": "2026-01-22T03:26:20.891Z"
+        }
+      ],
+      "uptime": {
+        "last24h": 100,
+        "last7d": 100,
+        "last30d": 100
+      }
+    },
+    "github-desktop-api": {
+      "endpoint": "github-desktop-api",
+      "checks": [
+        {
+          "status": "operational",
+          "responseTime": 322,
+          "timestamp": "2026-01-22T03:26:21.213Z"
+        }
+      ],
+      "uptime": {
+        "last24h": 100,
+        "last7d": 100,
+        "last30d": 100
+      }
+    },
+    "github-bridge-manager": {
+      "endpoint": "github-bridge-manager",
+      "checks": [
+        {
+          "status": "operational",
+          "responseTime": 295,
+          "timestamp": "2026-01-22T03:26:21.509Z"
+        }
+      ],
+      "uptime": {
+        "last24h": 100,
+        "last7d": 100,
+        "last30d": 100
+      }
+    }
+  },
   "incidents": []
 }

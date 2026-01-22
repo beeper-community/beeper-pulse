@@ -83,3 +83,22 @@ export async function sendDiscordNotification(
     };
   }
 }
+
+/**
+ * Send notification using environment variables
+ */
+export async function sendDiscordNotificationFromEnv(
+  payload: NotificationPayload
+): Promise<NotificationResult> {
+  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+  if (!webhookUrl) {
+    return {
+      success: false,
+      provider: "discord",
+      error: "DISCORD_WEBHOOK_URL not configured",
+      timestamp: new Date(),
+    };
+  }
+
+  return sendDiscordNotification(payload, { webhookUrl });
+}
