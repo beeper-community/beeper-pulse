@@ -1,0 +1,37 @@
+{
+  "lastUpdated": "2026-01-22T04:14:35.233Z",
+  "finds": [
+    {
+      "id": "47e5fdf7-8fd1-4e35-ad99-602a0dbac7f8",
+      "type": "link",
+      "title": "🐝 **Beeper Pulse is live!**\n\nI've set up automated monitori...",
+      "description": "🐝 **Beeper Pulse is live!**\n\nI've set up automated monitoring for the Beeper ecosystem:\n\n📊 **Status Page:** https://beeper-community.github.io/beeper-pulse\n📦 **GitHub:** https://github.com/beeper-community/beeper-pulse\n\nFor automated alerts about releases and status changes, join: **#beeper-pulse-alerts:beeper.com**\n\nFeatures:\n- Release tracking for Beeper Desktop, SDK, and bridges\n- Status monitoring with uptime tracking\n- RSS/JSON feeds for updates",
+      "url": "https://beeper-community.github.io/beeper-pulse",
+      "source": {
+        "messageId": "$HZ6FmjSzzk82tHu8xQO7DvV9IeaHNNPM-uSQL83GYzE",
+        "author": "@robthepirate:beeper.com",
+        "timestamp": "2026-01-22T03:09:53.760Z",
+        "roomId": "!VRvJRVNZDbRuKAsKvK:beeper.com"
+      },
+      "category": "resources",
+      "tags": [
+        "desktop",
+        "bridge"
+      ],
+      "status": "pending",
+      "discoveredAt": "2026-01-22T04:14:35.218Z"
+    }
+  ],
+  "stats": {
+    "total": 1,
+    "pending": 1,
+    "approved": 0,
+    "published": 0,
+    "byType": {
+      "link": 1
+    },
+    "byCategory": {
+      "resources": 1
+    }
+  }
+}

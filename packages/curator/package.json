@@ -1,0 +1,19 @@
+{
+  "name": "@beeper-pulse/curator",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "curator.ts",
+  "scripts": {
+    "curate": "tsx curator.ts",
+    "curate:fetch": "tsx curator.ts fetch",
+    "curate:process": "tsx curator.ts process",
+    "curate:publish": "tsx curator.ts publish"
+  },
+  "dependencies": {
+    "@beeper-pulse/core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

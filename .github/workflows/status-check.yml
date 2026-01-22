@@ -35,8 +35,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm status:check
 
+      # Notifications disabled for now - set ENABLE_NOTIFICATIONS=true in repo variables to enable
       - name: Send notifications
-        if: always()
+        if: ${{ vars.ENABLE_NOTIFICATIONS == 'true' }}
         env:
           MATRIX_HOMESERVER_URL: ${{ secrets.MATRIX_HOMESERVER_URL }}
           MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
