@@ -1,170 +1,137 @@
+```
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║    ██████╗ ███████╗███████╗██████╗ ███████╗██████╗               ║
+║    ██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗              ║
+║    ██████╔╝█████╗  █████╗  ██████╔╝█████╗  ██████╔╝              ║
+║    ██╔══██╗██╔══╝  ██╔══╝  ██╔═══╝ ██╔══╝  ██╔══██╗              ║
+║    ██████╔╝███████╗███████╗██║     ███████╗██║  ██║              ║
+║    ╚═════╝ ╚══════╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝              ║
+║                                                                  ║
+║    ██████╗ ██╗   ██╗██╗     ███████╗███████╗                     ║
+║    ██╔══██╗██║   ██║██║     ██╔════╝██╔════╝                     ║
+║    ██████╔╝██║   ██║██║     ███████╗█████╗                       ║
+║    ██╔═══╝ ██║   ██║██║     ╚════██║██╔══╝                       ║
+║    ██║     ╚██████╔╝███████╗███████║███████╗                     ║
+║    ╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝                     ║
+║                                                                  ║
+║    Real-time notifications for the Beeper ecosystem              ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
 <div align="center">
 
-# 🐝 Beeper Pulse
-
-**Full monitoring suite for the Beeper ecosystem**
-
-[![Status Check](https://github.com/beeper-community/beeper-pulse/actions/workflows/status-check.yml/badge.svg)](https://github.com/beeper-community/beeper-pulse/actions/workflows/status-check.yml)
-[![Official Updates](https://github.com/beeper-community/beeper-pulse/actions/workflows/official-updates.yml/badge.svg)](https://github.com/beeper-community/beeper-pulse/actions/workflows/official-updates.yml)
+[![Release Notifications](https://github.com/beeper-community/beeper-pulse/actions/workflows/release-notifications.yml/badge.svg)](https://github.com/beeper-community/beeper-pulse/actions/workflows/release-notifications.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-[Status Page](https://beeper-community.github.io/beeper-pulse) •
-[RSS Feed](https://raw.githubusercontent.com/beeper-community/beeper-pulse/main/feeds/releases.xml) •
-[Join Alerts](https://matrix.to/#/#beeper-pulse-alerts:beeper.com)
 
 </div>
 
 ---
 
-## ✨ Features
+## Overview
 
-<table>
-<tr>
-<td width="50%">
+**Beeper Pulse** is the notification hub for the Beeper community ecosystem. It delivers real-time alerts about releases, status changes, and important updates across multiple channels including Matrix, Discord, and Slack.
 
-### 📊 Status Monitoring
-- Health checks for Beeper endpoints
-- Uptime tracking (24h, 7d, 30d)
-- Historical status data
-- Automated incident detection
-
-</td>
-<td width="50%">
-
-### 📦 Release Tracking
-- GitHub releases monitoring
-- npm package updates
-- Changelog generation
-- RSS & JSON feeds
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### 🔔 Notifications
-- **Matrix/Beeper** - Native integration
-- **Discord** - Rich embeds
-- **Slack** - Block kit messages
-- **Webhooks** - Generic HTTP
-- **Email** - Via Resend/SendGrid
-
-</td>
-<td width="50%">
-
-### 🌐 Status Page
-- Live service status
-- Release history
-- Auto-refreshing dashboard
-- Mobile-friendly design
-
-</td>
-</tr>
-</table>
+This repository focuses exclusively on **notifications** - discovery and analysis happen in [beeper-scout](https://github.com/beeper-community/beeper-scout), while curated documentation lives in [awesome-beeper](https://github.com/beeper-community/awesome-beeper).
 
 ---
 
-## 🚀 Quick Start
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| :loudspeaker: **Release Notifications** | Instant alerts when new versions of Beeper apps and bridges are released |
+| :bell: **Status Alerts** | Real-time notifications for service status changes and incidents |
+| :link: **Multi-Channel** | Deliver notifications to Matrix, Discord, Slack, and webhooks |
+
+---
+
+## Ecosystem
+
+Beeper Pulse is part of a 3-repo ecosystem for the Beeper community:
+
+| Repository | Purpose | Link |
+|------------|---------|------|
+| **beeper-pulse** | Notifications & Alerts | *You are here* |
+| **beeper-scout** | Discovery & Analysis | [beeper-community/beeper-scout](https://github.com/beeper-community/beeper-scout) |
+| **awesome-beeper** | Curated Documentation | [beeper-community/awesome-beeper](https://github.com/beeper-community/awesome-beeper) |
+
+---
+
+## Setup
+
+### Repository Secrets
+
+Configure these secrets in your GitHub repository settings:
+
+| Secret | Description | Required |
+|--------|-------------|:--------:|
+| `GITHUB_TOKEN` | GitHub API access (auto-provided) | Automatic |
+| `MATRIX_HOMESERVER_URL` | Matrix server URL (e.g., `https://matrix.beeper.com`) | For Matrix |
+| `MATRIX_ACCESS_TOKEN` | Matrix bot access token | For Matrix |
+| `MATRIX_ROOM_ID` | Target Matrix room ID | For Matrix |
+| `DISCORD_WEBHOOK_URL` | Discord webhook URL | For Discord |
+| `SLACK_WEBHOOK_URL` | Slack incoming webhook URL | For Slack |
+
+---
+
+## Notification Channels
+
+### Matrix / Beeper
+
+Native integration with Matrix protocol. Messages are sent directly to your specified room with rich formatting.
 
 ```bash
-# Clone the repo
+# Required secrets
+MATRIX_HOMESERVER_URL=https://matrix.beeper.com
+MATRIX_ACCESS_TOKEN=syt_xxx
+MATRIX_ROOM_ID=!roomid:beeper.com
+```
+
+### Discord
+
+Rich embed notifications via Discord webhooks with color-coded status indicators.
+
+```bash
+# Required secret
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxx/yyy
+```
+
+### Slack
+
+Block Kit formatted messages for Slack workspaces.
+
+```bash
+# Required secret
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxx/yyy/zzz
+```
+
+---
+
+## Development
+
+```bash
+# Clone the repository
 git clone https://github.com/beeper-community/beeper-pulse.git
 cd beeper-pulse
 
 # Install dependencies
 pnpm install
 
-# Run status check
-pnpm status:check
+# Run tests
+pnpm test
 
-# Start status page locally
-pnpm web:dev
+# Check types
+pnpm typecheck
+
+# Lint code
+pnpm lint
 ```
 
 ---
 
-## 📡 Subscribe to Updates
-
-| Method | Link |
-|--------|------|
-| 🔔 **Matrix Room** | [#beeper-pulse-alerts:beeper.com](https://matrix.to/#/#beeper-pulse-alerts:beeper.com) |
-| 📰 **RSS Feed** | [releases.xml](https://raw.githubusercontent.com/beeper-community/beeper-pulse/main/feeds/releases.xml) |
-| 📦 **JSON Feed** | [releases.json](https://raw.githubusercontent.com/beeper-community/beeper-pulse/main/feeds/releases.json) |
-| 🌐 **Status Page** | [beeper-community.github.io/beeper-pulse](https://beeper-community.github.io/beeper-pulse) |
-
----
-
-## 🏗️ Project Structure
-
-```
-beeper-pulse/
-├── packages/
-│   ├── core/           # Release tracking & feed generation
-│   ├── notifications/  # Multi-platform notifications
-│   │   ├── matrix.ts   # Matrix/Beeper support
-│   │   ├── discord.ts  # Discord webhooks
-│   │   ├── slack.ts    # Slack webhooks
-│   │   └── email.ts    # Email notifications
-│   └── status/         # Health checks & uptime
-├── apps/
-│   └── web/            # Status page (Vite)
-├── data/               # Snapshots & history
-├── feeds/              # RSS & JSON feeds
-└── .github/workflows/  # Automated checks
-```
-
----
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|:--------:|
-| `GITHUB_TOKEN` | GitHub API access | ✅ |
-| `MATRIX_HOMESERVER_URL` | Matrix server (e.g., `https://matrix.beeper.com`) | For Matrix |
-| `MATRIX_ACCESS_TOKEN` | Matrix access token | For Matrix |
-| `MATRIX_ROOM_ID` | Target room ID | For Matrix |
-| `DISCORD_WEBHOOK_URL` | Discord webhook URL | For Discord |
-| `SLACK_WEBHOOK_URL` | Slack webhook URL | For Slack |
-
----
-
-## 📊 Monitored Services
-
-| Service | Endpoint | Check Interval |
-|---------|----------|:--------------:|
-| Beeper API | `api.beeper.com` | 5 min |
-| Beeper Download | `download.beeper.com` | 5 min |
-| Beeper Web | `beeper.com` | 5 min |
-
----
-
-## 🛠️ Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `pnpm status:check` | Run health checks |
-| `pnpm fetch:official` | Fetch latest releases |
-| `pnpm notify:status` | Send status notification |
-| `pnpm notify:releases` | Send release notifications |
-| `pnpm web:dev` | Start status page dev server |
-| `pnpm web:build` | Build status page |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-**Ideas:**
-- Add new endpoints to monitor
-- Improve the status page design
-- Add new notification providers
-
----
-
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) for details.
 
