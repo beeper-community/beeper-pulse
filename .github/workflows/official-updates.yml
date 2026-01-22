@@ -1,55 +1,51 @@
-name: Official Updates
+name: Release Notifications
 
 on:
   schedule:
-    # Run every hour
-    - cron: "0 * * * *"
+    - cron: "0 */6 * * *"  # Every 6 hours
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  fetch-updates:
+  check-and-notify:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
 
-      - name: Fetch official updates
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Fetch official releases
         run: pnpm fetch:official
 
-      # Notifications disabled for now - set ENABLE_NOTIFICATIONS=true in repo variables to enable
-      - name: Send release notifications
+      - name: Commit data changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/
+          git diff --staged --quiet || git commit -m "chore: update release data"
+          git push
+
+      - name: Send notifications
         if: ${{ vars.ENABLE_NOTIFICATIONS == 'true' }}
         env:
           MATRIX_HOMESERVER_URL: ${{ secrets.MATRIX_HOMESERVER_URL }}
           MATRIX_ACCESS_TOKEN: ${{ secrets.MATRIX_ACCESS_TOKEN }}
           MATRIX_ROOM_ID: ${{ secrets.MATRIX_ROOM_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: pnpm notify:releases
-        continue-on-error: true
-
-      - name: Commit changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add data/ feeds/
-          git diff --staged --quiet || git commit -m "chore: update releases snapshot [skip ci]"
-          git pull --rebase || true
-          git push || echo "Push failed, will retry on next run"
